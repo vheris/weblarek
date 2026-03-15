@@ -22,3 +22,18 @@ export interface BuyerData {
     email: string,
     phone: string
 }
+
+export interface ProductListResponse {
+    total: number;
+    items: ProductData[];
+}
+
+export interface OrderRequest extends BuyerData {
+    items: string[];
+    total: number;
+}
+
+export interface OrderResponse {
+    id: string;
+    total: number;
+}
