@@ -124,7 +124,7 @@ Presenter - презентер содержит основную логику п
 Хранит и управляет данными покупателя, необходимыми для оформления заказа.
 
 Атрибуты:
-`#data: Buyer` - хранит данные покупателя.
+`#data: BuyerData` - хранит данные покупателя.
 Методы:
 `setData(data: Partial<BuyerData>): void` - частично обновляет данные клиента.
 `getData(): BuyerData` - возвращает все текущие данные покупателя/
@@ -156,4 +156,4 @@ Presenter - презентер содержит основную логику п
 `setProducts(products: ProductData[]): void` - устанавливает новый массив товаров.
 `selectProduct(product: ProductData): void` - сохраняет выбранную карточку товара.
 `getSelectedProduct(): ProductData | null` - возвращает текущую выбранную карточку товара или null, если ничего не выбрано.
-`getProductById(productID: string): ProductData` - возвращает товар по его id.
+`getProductById(productID: string): ProductData | null` - возвращает товар по его id или в null при отсутствии.
