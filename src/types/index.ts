@@ -6,6 +6,7 @@ export interface IApi {
 }
 
 export type Payment = 'cash' | 'card' | '';
+export type BuyerValidationErrors = Partial<Record<keyof BuyerData, string>>;
 
 export interface ProductData {
     id: string,
