@@ -221,7 +221,7 @@ Presenter - презентер содержит основную логику п
 Сеттеры: `set items(items: HTMLElement)`    
 
 #### Класс Modal
-Класс, реализующий логику работы модальных окон.
+Класс для управления модальным окном. Отвечает за открытие, закрытие и динамическую замену контента внутри модального окна. Обрабатывает событие `OnClick`.  
 
 Интерфейс данных: `внутренний ModalData`    
 Поля данных: `content: HTMLElement` 
@@ -231,10 +231,48 @@ Presenter - презентер содержит основную логику п
 Сеттеры: `set content(value: HTMLElement)` - меняет содержимое модального окна. 
 
 #### Класс Card
-Класс-основа для всех карточек товара.  
+Базовый класс для создания карточек товара. Отвечает за отображение названия и цены.    
 
 Интерфейс данных: `внутренний CardData` 
-Поля данных: `title: string`, `price: number | null`   
+Поля данных: `id: string`, `title: string`, `price: number | null`   
 Поля класса: `cardTitle: HTMLElement`, `cardPrice: HTMLElement`, `cardButton?: HTMLButtonElement`   
 Конструктор: `constructor(container: HTMLElement)`  
 Сеттеры: `set title(value: string)`, `set price(value: number | null)`
+
+#### Класс CardGallery
+Класс для карточек товара на главной странице сайта, расширяющий базовый класс Card. Отвечает за дополнительное отображение изображения товара и категории товара. Обрабатывает событие `OnClick`. 
+
+Интерфейс данных: `внутренний CardGalleryData`  
+Поля данных: `category: string`, `image: string` 
+Поля класса: `cardImage: HTMLElement`, `cardCategory: HTMLElement`, `actions?: cardActionsInterface`    
+Конструктор: `constructor(container: HTMLElement, actions?: cardActionsInterface)`  
+Сеттеры: `set cardImage(value: string)` - устанавливает изображение товара, `set cardCargory(value: string)` - устанавливает категорию товара и добавляет CSS-класс 
+
+#### Класс CardDetails
+Класс для открытых карточек товара, расширяющий CardGallery. Отвечает за дополнительное отображение описания товара и кнопку покупки товара. При клике на кнопку "Купить" эмитит событие `basket.add`.    
+
+Интерфейс данных: `внутренний CardDetailsData`      
+Поля данных: `description: string`,  `buttonDisabled: boolean`, `buttonText: string`    
+Поля класса: `cardDescription: HTMLElement`, `cardButton: HTMLElement`, `event: EventInterface`
+Конструктор: `constructor(container: HTMLElement, event?: EventInterface)`
+Сеттеры: `set cardDescription(value: string)` - устанавливает описание товара, `set buttonText(value: string)` - устанавливает подпись на кнопке, `set buttonDisabled(value: boolean)` - изменяет доступность кнопки    
+
+#### Класс CardBasket
+Класс для карточек товара в корзине, расширяющий базовый класс Card. Отвечает за дополнительное отображение номера товара в корзине. Обрабатывает событие `OnClick`.    
+
+Интерфейс данных: `внутренний CardBasketData`   
+Поля данных: `index: number`   
+Поля класса: `cardButton: HTMLElement`, `indexElement: HTMLElement`, `actions?: cardActionsInterface`   
+Конструктор: `constructor(container: HTMLElement, actions?: cardActionsInterface)`  
+Сеттеры: `set index(value: number)` - устанавливает порядковый номер товара в корзине   
+
+#### Класс Basket
+Класс корзины товаров. Отвечает за отображения товаров, общей суммы, кнопки оформления. При клике на кнопку "Оформить" эмитит событие `basket.buy`. 
+
+Интерфейс данных: `внутренний BasketData`   
+Поля данных: `total: number`, `buttonDisabled: boolean`, `items: HTMLElement[]` 
+Поля класса: `cardList: HTMLElement`, `cardTotal: HTMLElement`, `cardButton: HTMLButtonElement` 
+Конструктор: `constructor(container: HTMLElement, event?: EventInterface)`  
+Сеттеры: `set cardList(value: HTMLElement[])` - устанавливает список товаров, желаемых к покупке, `set cardTotal(value: number)` - устанавливает стоимость товаров из корзины, `set buttonDisabled(value: boolean)` - отвечает за активацию кнопки "Оформить"   
+
+#### Класс Form
