@@ -199,3 +199,42 @@ Presenter - презентер содержит основную логику п
 Методы класса:  
 `getProducts(): Promise<ProductListResponse>` — выполняет GET-запрос на эндпоинт /product/ и возвращает объект с массивом товаров.  
 `createOrder(order: OrderRequest): Promise<OrderResponse>` — выполняет POST-запрос на эндпоинт /order/, отправляет данные покупателя и выбранных товаров, возвращает объект подтверждения покупки с итоговой суммой.
+
+### Слой представления
+
+#### Класс Header
+Класс, реализующий логику работы иконки корзины. При клике на кнопку корзины эмитит событие `basket.open`.  
+
+Интерфейс данных: `внутренний HeaderData`     
+Поля данных: `counter: number`  
+Поля класса: `counterElement: HTMLElement`, `basketButton: HTMLButtonElement`   
+Конструктор: `constructor(Event: IEvent, cointainer: HTMLElement)`  
+Сеттеры: `set counter(value: number)` - обновление счетчика корзины.    
+
+#### Класс Gallery
+Класс, реализующий добавление/обновление карточек каталога. 
+
+Интерфейс данных: `внутренний GalleryData`  
+Поля данных: `items: HTMLElement[]` 
+Поля класса: `catalogElement: HTMLElement`  
+Конструктор: `constructor(container: HTMLElement)`  
+Сеттеры: `set items(items: HTMLElement)`    
+
+#### Класс Modal
+Класс, реализующий логику работы модальных окон.
+
+Интерфейс данных: `внутренний ModalData`    
+Поля данных: `content: HTMLElement` 
+Поля класса: `closeButton: HTMLButtonElement`, `modalContent: HTMLElement`  
+Конструктор: `constructor(Event: IEvent, container: HTMLElement)`   
+Методы: `open()` - открытие модального окна, за счет добавления класса `modal_active` элементу , `close()` - закрытие модального окна за счет удаления класса   
+Сеттеры: `set content(value: HTMLElement)` - меняет содержимое модального окна. 
+
+#### Класс Card
+Класс-основа для всех карточек товара.  
+
+Интерфейс данных: `внутренний CardData` 
+Поля данных: `title: string`, `price: number | null`   
+Поля класса: `cardTitle: HTMLElement`, `cardPrice: HTMLElement`, `cardButton?: HTMLButtonElement`   
+Конструктор: `constructor(container: HTMLElement)`  
+Сеттеры: `set title(value: string)`, `set price(value: number | null)`
