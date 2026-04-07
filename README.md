@@ -254,7 +254,7 @@ Presenter - презентер содержит основную логику п
 Интерфейс данных: `внутренний CardDetailsData`      
 Поля данных: `description: string`,  `buttonDisabled: boolean`, `buttonText: string`    
 Поля класса: `cardDescription: HTMLElement`, `cardButton: HTMLElement`, `event: EventInterface`
-Конструктор: `constructor(container: HTMLElement, event?: EventInterface)`
+Конструктор: `constructor(container: HTMLElement, event?: IEvents)`
 Сеттеры: `set cardDescription(value: string)` - устанавливает описание товара, `set buttonText(value: string)` - устанавливает подпись на кнопке, `set buttonDisabled(value: boolean)` - изменяет доступность кнопки    
 
 #### Класс CardBasket
@@ -272,7 +272,41 @@ Presenter - презентер содержит основную логику п
 Интерфейс данных: `внутренний BasketData`   
 Поля данных: `total: number`, `buttonDisabled: boolean`, `items: HTMLElement[]` 
 Поля класса: `cardList: HTMLElement`, `cardTotal: HTMLElement`, `cardButton: HTMLButtonElement` 
-Конструктор: `constructor(container: HTMLElement, event?: EventInterface)`  
+Конструктор: `constructor(container: HTMLElement, event?: IEvents)`  
 Сеттеры: `set cardList(value: HTMLElement[])` - устанавливает список товаров, желаемых к покупке, `set cardTotal(value: number)` - устанавливает стоимость товаров из корзины, `set buttonDisabled(value: boolean)` - отвечает за активацию кнопки "Оформить"   
 
 #### Класс Form
+Базовый класс для форм. Отвечает за доступность формы и вывод ошибок. При отправке формы эмитит событие `${form.name}.submit`. 
+
+Интерфейс данных: `внутренний FormData` 
+Поля данных: `valid: boolean`, `errors: string[]`   
+Поля класса: `formSubmit: HTMLElement`, `fromErrors: HTMLElement`   
+Конструктор: `constructor(container: HTMLElement, event?: IEvents)`    
+Сеттеры: `set valid(value: boolean)` - управляет активацией кнопки отправки формы, `set errors(value: string[])` - вывод ошибки 
+
+#### Класс OrderForm.
+Класс для форм, расширяющий базовый класс Form. Отвечает за функциональность кнопок выбора метода оплаты и установку значения в поле адреса. При изменении полей эмитит событие `order.change`. 
+
+Интерфейс данных: `внутренний OrderFormData`    
+Поля данных: `payment: Payment`, `address: string`  
+Поля класса: `cardButton: HTMLButtonElement`, `cashButton: HTMLButtonElement`, `formAdress: HTMLElement`    
+Конструктор: `constructor(container: HTMLElement, event?: IEvents)`  
+Сеттеры: `set payment(value: Payment)` - управляет состоянием активности кнопок выбора типа оплаты, `set address(value: string)` - устанавливает значение поля адреса   
+
+#### Класс ContactForm
+Класс для форм, расширяющий базовый класс Form. Отвечает за функциональность полей ввода. При изменении полей эмитит событие `contact.change`.  
+
+Интерфейс данных: `внутренний ContactFormData`
+Поля данных: `email: string`, `phone: string`
+Поля классов: `formEmail: HTMLElement`, `formPhone: HTMLElement`    
+Конструктор: `constructor(container: HTMLElement, event?: IEvents)`  
+Сеттеры: `set email(value: string)`, `set phone(value: string)`
+
+#### Класс Success
+Класс, отвечающий за отображение суммы списания денежных средств после оформления покупки. При нажатии эмитит событие `success.close`   
+
+Интерфейс данных: `внутренний SuccessData`  
+Поля данных: `total: number`    
+Поля классов: `successTotal: HTMLElement`, `closeButton: HTMLButtonElement`
+Конструктор: `constructor(container: HTMLElement, event?: IEvents)` 
+Сеттеры: `set total(value: number)` - устанавливает сумму списания денежных средств.
