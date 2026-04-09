@@ -26,20 +26,14 @@ export class Basket extends Component<BasketData> {
     }
 
     set list(value: HTMLElement[]) {
-        if (this.cardList) {
-            this.cardList.replaceChildren(...value);
-        }
+        this.cardList.replaceChildren(...value);
     }
 
     set total(value: number) {
-        if (this.cardTotal) {
-            this.cardTotal.textContent = `${value} синапсов`;
-        }
+        this.cardTotal.textContent = `${value} синапсов`;
     }
 
     set buttonDisabled(value: boolean) {
-        if (this.cardButton) {
-            this.cardButton.disabled = value;
-        }
+        this.cardButton.disabled = value;
     }
 }

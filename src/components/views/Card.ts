@@ -31,26 +31,20 @@ interface cardActionsInterface {
 export class Card<T extends CardData> extends Component<T> {
     protected cardTitle: HTMLElement;
     protected cardPrice: HTMLElement;
-    protected cardButton?: HTMLButtonElement;
 
     constructor(container: HTMLElement) {
         super(container);
 
         this.cardTitle = ensureElement<HTMLElement>('.card__title', this.container)
         this.cardPrice = ensureElement<HTMLElement>('.card__price', this.container)
-        this.cardButton = this.container.querySelector('.card__button') as HTMLButtonElement | undefined;
     }
 
     set title(value: string) {
-        if (this.cardTitle){
-            this.cardTitle.textContent = value;
-        }
+        this.cardTitle.textContent = value;
     }
 
     set price(value: number | null) {
-        if (this.cardPrice){
-            this.cardPrice.textContent = value !== null ? `${value} синапсов` : 'Бесценно';
-        }
+        this.cardPrice.textContent = value !== null ? `${value} синапсов` : 'Бесценно';
     }
 }
 
@@ -72,18 +66,14 @@ export class CardGallery<CardData extends CardGalleryData> extends Card<CardData
     }
 
     set image(value: string) {
-        if (this.cardImage) {
-            this.setImage(this.cardImage, `${CDN_URL}${value}`);
-        }
+        this.setImage(this.cardImage, `${CDN_URL}${value}`);
     }
 
     set category(value: string) {
-        if (this.cardCategory) {
-            this.cardCategory.textContent = value;
-            this.cardCategory.classList.remove(...Object.values(categoryMap));
-            const categoryClass = categoryMap[value as keyof typeof categoryMap];
-            this.cardCategory.classList.add(categoryClass);
-        }
+        this.cardCategory.textContent = value;
+        this.cardCategory.classList.remove(...Object.values(categoryMap));
+        const categoryClass = categoryMap[value as keyof typeof categoryMap];
+        this.cardCategory.classList.add(categoryClass);
     }
 }
 
@@ -106,21 +96,15 @@ export class CardDetails extends CardGallery<CardDetailsData> {
     }
 
     set description(value: string) {
-        if (this.cardDescription) {
             this.cardDescription.textContent = value;
-        }
     }
 
     set buttonText(value: string) {
-        if (this.cardButton) {
-            this.cardButton.textContent = value;
-        }
+        this.cardButton.textContent = value;
     }
 
     set buttonDisabled(value: boolean) {
-        if (this.cardButton) {
-            this.cardButton.disabled = value;
-        }
+        this.cardButton.disabled = value;
     }
 }
 
@@ -143,8 +127,6 @@ export class CardBasket extends Card<CardBasketData> {
     }
 
     set index(value: number) {
-        if (this.indexElement) {
-            this.indexElement.textContent = `${value}.`;
-        }
+        this.indexElement.textContent = `${value}.`;
     }
 }

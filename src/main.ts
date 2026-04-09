@@ -14,7 +14,6 @@ import { Buyer } from "./components/models/Buyer";
 import { Header } from "./components/views/Header";
 import { CardBasket, CardDetails, CardGallery } from "./components/views/Card";
 import { cloneTemplate } from "./utils/utils";
-import { apiProducts } from "./utils/data";
 import { BuyerData, BuyerValidationErrors, ProductData } from "./types";
 
 
@@ -78,8 +77,8 @@ event.on('product.current', () => {
         category: product.category,
         image: product.image,
         description: product.description,
-        buttonDisabled: unavailable || inCart,
-        buttonText: unavailable ? 'Недоступно' : inCart ? 'Уже в корзине' : 'Купить',
+        buttonDisabled: unavailable,
+        buttonText: unavailable ? 'Недоступно' : inCart ? 'Удалить из корзины' : 'Купить',
     });
     modal.open();
 });
@@ -117,24 +116,12 @@ event.on('buyer.changed', () => {
     contactForm.email = data.email;
 
     const errors = buyer.validate();
-    event.emit('order.validation', {
-        valid: !errors.payment && !errors.address,
-        errors: getErrors(errors, ['payment', 'address']),
-    });
-    event.emit('contacts.validation', {
-        valid: !errors.email && !errors.phone,
-        errors: getErrors(errors, ['email', 'phone']),
-    });
-});
+    
+    orderForm.valid = !errors.payment && !errors.address;
+    orderForm.errors = getErrors(errors, ['payment', 'address']);
 
-event.on<{ valid: boolean; errors: string[] }>('contacts.validation', ({ valid, errors }) => {
-    contactForm.valid = valid;
-    contactForm.errors = errors;
-});
-
-event.on<{ valid: boolean; errors: string[] }>('order.validation', ({ valid, errors }) => {
-    orderForm.valid = valid;
-    orderForm.errors = errors;
+    contactForm.valid = !errors.email && !errors.phone;
+    contactForm.errors = getErrors(errors, ['email', 'phone']);
 });
 
 event.on('basket.add', () => {
