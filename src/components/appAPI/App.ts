@@ -7,6 +7,7 @@ import {
 
 export class App {
   private api: IApi;
+  
   constructor(api: IApi) {
     this.api = api;
   }

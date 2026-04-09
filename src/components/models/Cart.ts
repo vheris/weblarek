@@ -1,18 +1,27 @@
 import { ProductData } from "../../types";
+import { IEvents } from "../base/Events";
 
 export class Cart {
   private items: ProductData[] = [];
+  event: IEvents;
+
+  constructor(event: IEvents) {
+    this.event = event;
+  }
 
   addItem(product: ProductData): void {
     this.items.push(product);
+    this.event.emit('cart.update');
   }
 
   deleteItem(productId: string): void {
     this.items = this.items.filter((i) => i.id !== productId);
+    this.event.emit('cart.update');
   }
 
   cleanCart(): void {
     this.items.splice(0, this.items.length);
+    this.event.emit('cart.update');
   }
 
   getQuantity(): number {

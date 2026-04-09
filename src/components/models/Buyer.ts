@@ -1,4 +1,5 @@
 import { BuyerData, BuyerValidationErrors } from "../../types";
+import { IEvents } from "../base/Events";
 
 export class Buyer {
   private data: BuyerData = {
@@ -7,8 +8,15 @@ export class Buyer {
     email: "",
     phone: "",
   };
+  protected event: IEvents;
+
+  constructor(event: IEvents) {
+    this.event = event;
+  }
+
   setData(data: Partial<BuyerData>): void {
     this.data = { ...this.data, ...data };
+    this.event?.emit('buyer.changed');
   }
 
   getData(): BuyerData {
@@ -22,6 +30,7 @@ export class Buyer {
       email: "",
       phone: "",
     };
+    this.event?.emit('buyer.changed');
   }
 
   validate(): BuyerValidationErrors {

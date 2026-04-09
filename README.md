@@ -207,8 +207,8 @@ Presenter - презентер содержит основную логику п
 
 Интерфейс данных: `внутренний HeaderData`     
 Поля данных: `counter: number`  
-Поля класса: `counterElement: HTMLElement`, `basketButton: HTMLButtonElement`   
-Конструктор: `constructor(Event: IEvent, cointainer: HTMLElement)`  
+Поля класса: `headerCounter: HTMLElement`, `basketButton: HTMLButtonElement`   
+Конструктор: `constructor(event: IEvents, cointainer: HTMLElement)`  
 Сеттеры: `set counter(value: number)` - обновление счетчика корзины.    
 
 #### Класс Gallery
@@ -216,7 +216,7 @@ Presenter - презентер содержит основную логику п
 
 Интерфейс данных: `внутренний GalleryData`  
 Поля данных: `items: HTMLElement[]` 
-Поля класса: `catalogElement: HTMLElement`  
+Поля класса: `galleryCatalog: HTMLElement`  
 Конструктор: `constructor(container: HTMLElement)`  
 Сеттеры: `set items(items: HTMLElement)`    
 
@@ -226,7 +226,7 @@ Presenter - презентер содержит основную логику п
 Интерфейс данных: `внутренний ModalData`    
 Поля данных: `content: HTMLElement` 
 Поля класса: `closeButton: HTMLButtonElement`, `modalContent: HTMLElement`  
-Конструктор: `constructor(Event: IEvent, container: HTMLElement)`   
+Конструктор: `constructor(event: IEvents, container: HTMLElement)`   
 Методы: `open()` - открытие модального окна, за счет добавления класса `modal_active` элементу , `close()` - закрытие модального окна за счет удаления класса   
 Сеттеры: `set content(value: HTMLElement)` - меняет содержимое модального окна. 
 
@@ -244,25 +244,25 @@ Presenter - презентер содержит основную логику п
 
 Интерфейс данных: `внутренний CardGalleryData`  
 Поля данных: `category: string`, `image: string` 
-Поля класса: `cardImage: HTMLElement`, `cardCategory: HTMLElement`, `actions?: cardActionsInterface`    
+Поля класса: `cardImage: HTMLImageElement`, `cardCategory: HTMLElement`, `actions?: cardActionsInterface`    
 Конструктор: `constructor(container: HTMLElement, actions?: cardActionsInterface)`  
-Сеттеры: `set cardImage(value: string)` - устанавливает изображение товара, `set cardCargory(value: string)` - устанавливает категорию товара и добавляет CSS-класс 
+Сеттеры: `set image(value: string)` - устанавливает изображение товара, `set category(value: string)` - устанавливает категорию товара и добавляет CSS-класс 
 
 #### Класс CardDetails
 Класс для открытых карточек товара, расширяющий CardGallery. Отвечает за дополнительное отображение описания товара и кнопку покупки товара. При клике на кнопку "Купить" эмитит событие `basket.add`.    
 
 Интерфейс данных: `внутренний CardDetailsData`      
 Поля данных: `description: string`,  `buttonDisabled: boolean`, `buttonText: string`    
-Поля класса: `cardDescription: HTMLElement`, `cardButton: HTMLElement`, `event: EventInterface`
-Конструктор: `constructor(container: HTMLElement, event?: IEvents)`
-Сеттеры: `set cardDescription(value: string)` - устанавливает описание товара, `set buttonText(value: string)` - устанавливает подпись на кнопке, `set buttonDisabled(value: boolean)` - изменяет доступность кнопки    
+Поля класса: `cardDescription: HTMLElement`, `cardButton: HTMLButtonElement`, `event: IEvents`
+Конструктор: `constructor(container: HTMLElement, event: IEvents)`
+Сеттеры: `set description(value: string)` - устанавливает описание товара, `set buttonText(value: string)` - устанавливает подпись на кнопке, `set buttonDisabled(value: boolean)` - изменяет доступность кнопки    
 
 #### Класс CardBasket
 Класс для карточек товара в корзине, расширяющий базовый класс Card. Отвечает за дополнительное отображение номера товара в корзине. Обрабатывает событие `OnClick`.    
 
 Интерфейс данных: `внутренний CardBasketData`   
 Поля данных: `index: number`   
-Поля класса: `cardButton: HTMLElement`, `indexElement: HTMLElement`, `actions?: cardActionsInterface`   
+Поля класса: `cardButton: HTMLButtonElement`, `indexElement: HTMLElement`, `actions?: cardActionsInterface`   
 Конструктор: `constructor(container: HTMLElement, actions?: cardActionsInterface)`  
 Сеттеры: `set index(value: number)` - устанавливает порядковый номер товара в корзине   
 
@@ -272,16 +272,16 @@ Presenter - презентер содержит основную логику п
 Интерфейс данных: `внутренний BasketData`   
 Поля данных: `total: number`, `buttonDisabled: boolean`, `items: HTMLElement[]` 
 Поля класса: `cardList: HTMLElement`, `cardTotal: HTMLElement`, `cardButton: HTMLButtonElement` 
-Конструктор: `constructor(container: HTMLElement, event?: IEvents)`  
-Сеттеры: `set cardList(value: HTMLElement[])` - устанавливает список товаров, желаемых к покупке, `set cardTotal(value: number)` - устанавливает стоимость товаров из корзины, `set buttonDisabled(value: boolean)` - отвечает за активацию кнопки "Оформить"   
+Конструктор: `constructor(container: HTMLElement, event: IEvents)`  
+Сеттеры: `set list(value: HTMLElement[])` - устанавливает список товаров, желаемых к покупке, `set total(value: number)` - устанавливает стоимость товаров из корзины, `set buttonDisabled(value: boolean)` - отвечает за активацию кнопки "Оформить"   
 
 #### Класс Form
 Базовый класс для форм. Отвечает за доступность формы и вывод ошибок. При отправке формы эмитит событие `${form.name}.submit`. 
 
 Интерфейс данных: `внутренний FormData` 
 Поля данных: `valid: boolean`, `errors: string[]`   
-Поля класса: `formSubmit: HTMLElement`, `fromErrors: HTMLElement`   
-Конструктор: `constructor(container: HTMLElement, event?: IEvents)`    
+Поля класса: `formSubmit: HTMLElement`, `formErrors: HTMLElement`   
+Конструктор: `constructor(container: HTMLElement, event: IEvents)`    
 Сеттеры: `set valid(value: boolean)` - управляет активацией кнопки отправки формы, `set errors(value: string[])` - вывод ошибки 
 
 #### Класс OrderForm.
@@ -289,7 +289,7 @@ Presenter - презентер содержит основную логику п
 
 Интерфейс данных: `внутренний OrderFormData`    
 Поля данных: `payment: Payment`, `address: string`  
-Поля класса: `cardButton: HTMLButtonElement`, `cashButton: HTMLButtonElement`, `formAdress: HTMLElement`    
+Поля класса: `cardButton: HTMLButtonElement`, `cashButton: HTMLButtonElement`, `formAdress: HTMLInputElement`    
 Конструктор: `constructor(container: HTMLElement, event?: IEvents)`  
 Сеттеры: `set payment(value: Payment)` - управляет состоянием активности кнопок выбора типа оплаты, `set address(value: string)` - устанавливает значение поля адреса   
 
@@ -298,7 +298,7 @@ Presenter - презентер содержит основную логику п
 
 Интерфейс данных: `внутренний ContactFormData`
 Поля данных: `email: string`, `phone: string`
-Поля классов: `formEmail: HTMLElement`, `formPhone: HTMLElement`    
+Поля классов: `formEmail: HTMLInputElement`, `formPhone: HTMLInputElement`    
 Конструктор: `constructor(container: HTMLElement, event?: IEvents)`  
 Сеттеры: `set email(value: string)`, `set phone(value: string)`
 
@@ -310,3 +310,33 @@ Presenter - презентер содержит основную логику п
 Поля классов: `successTotal: HTMLElement`, `closeButton: HTMLButtonElement`
 Конструктор: `constructor(container: HTMLElement, event?: IEvents)` 
 Сеттеры: `set total(value: number)` - устанавливает сумму списания денежных средств.
+
+### Слой презентера
+
+Архитектура приложения не предполагает отдельного класса для презентера — вся логика взаимодействия между отображением (View) и данными (Model) описана в основном скрипте приложения `src/main.ts`.
+
+Скрипт выполняет следующие функции роли Presenter:
+- Создает экземпляры всех необходимых классов представлений (`Catalog`, `Modal`, `Basket`, формы, карточки) и моделей (`Catagol`, `Cart`, `Buyer`).
+- Связывает модули между собой через брокер событий `EventEmitter`.
+- Настраивает слушателей (обработчики) под каждое потенциальное действие внутри системы. Новые события в презентере не генерируются — он только отвечает на события из слоев UI и Данных.
+
+#### Обработка событий
+Список всех событий приложения, обрабатываемых в `main.ts`, и соответствующих реакций презентера:
+
+**События изменения данных:**
+- `products.update` — вызывается при загрузке новых товаров в каталог. Презентер перерисовывает разметку всех карточек на Главной странице (`Gallery`).
+- `product.current` — вызывается при смене выбранного товара в модели каталога. Презентер обновляет содержимое модального окна (`Modal`), выводя в него детали товара текущей карточки (`CardDetails`).
+- `cart.update` — вызывается при манипуляциях с корзиной. Презентер обновляет счетчик товаров в шапке (`Header`), проверяет возможность оформления заказа (активирует/деактивирует кнопку покупки) и пересчитывает сумму в `Basket`.
+- `buyer.changed` — вызывается при вводе данных пользователя. Презентер обновляет значения в полях формы заказа и валидирует их.
+- `order.validation` / `contacts.validation` — события статуса валидации. Презентер обновляет состояние кнопок `submit` (отключает их или включает) и выводит ошибки в UI.
+
+**События взаимодействия пользователя с интерфейсом:**
+- `card.select` — вызывается при клике на карточку товара в каталоге. Презентер передает эти данные в модель каталога для изменения текущего продукта.
+- `basket.add` — вызывается при клике "Купить" внутри открытой карточки. Презентер дает корзине команду добавить товар и закрывает модалку.
+- `basket.remove` — вызывается при нажатии на иконку корзины на конкретном товаре в Basket. Презентер требует от модели `Cart` удалить товар.
+- `basket.open` — вызывается при нажатии на иконку корзины в `Header`. Презентер подставляет в модальное окно HTML корзины и открывает его.
+- `basket.buy` — от кнопки "Оформить" в корзине. Презентер заменяет контент в модалке на форму "Способ оплаты и адрес".
+- `order.change` / `contacts.change` — вызывается при вводе текста в поля или выборе варианта оплаты. Презентер сохраняет новые данные в `Buyer`.
+- `order.submit` — переход с первой формы ко второй. Презентер меняет содержимое модалки на форму "Email и Телефон".
+- `contacts.submit` — последний шаг оформления заказа. Презентер собирает все данные, отправляет POST-запрос в API через `App`, очищает корзину/модель покупателя и показывает финальное `success`-окно с суммой списания.
+- `success.close` — клик по кнопке "за новыми покупками!". Презентер закрывает модальное окно.
